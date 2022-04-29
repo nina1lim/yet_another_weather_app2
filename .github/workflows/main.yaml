@@ -30,6 +30,17 @@ jobs:
       maven-version: 3.8.2
     
     #
-    #- name: checkout source
-    #  uses: a
+    - name: checkout source
+      uses: actions/cjeckout@v3
+
+    - name: Run test
+      uses: mvn clean test
+    
+    - name: Deploy to Heroku
+      uses:akhileshns/heroku-deploy@v3.12.12 # This is the action
+      with:
+        heroku_api_key: ${{secrets.heroku_api}
+        heroku_app_name: ${{ secrets.HEROKU_APP_NAME }} #Must be unique in Heroku
+        heroku_email: ${{ secrets.email }}
+        branch: ${{ github.ref_name }}
 
